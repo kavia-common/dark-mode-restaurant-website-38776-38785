@@ -1,8 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders site brand name', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const brand = screen.getByText(/Ocean Bistro/i);
+  expect(brand).toBeInTheDocument();
+});
+
+test('has dark mode toggle button', () => {
+  render(<App />);
+  const btn = screen.getByRole('button', { name: /switch to (dark|light) mode/i });
+  expect(btn).toBeInTheDocument();
 });

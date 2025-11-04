@@ -1,104 +1,221 @@
-/* CSS Variables for Theme Management */
-:root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: color-mix(in oklab, var(--surface) 88%, transparent);
+  backdrop-filter: saturate(150%) blur(10px);
+  border-bottom: 1px solid var(--border);
 }
-
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
-}
-
-.App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+.header-inner {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  justify-content: space-between;
+  padding: 14px 0;
 }
-
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  font-weight: 800;
+  letter-spacing: 0.3px;
 }
-
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
+.brand-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--clr-primary) 35%, transparent), transparent),
+              var(--clr-primary);
+  box-shadow: 0 10px 25px color-mix(in oklab, var(--clr-primary) 25%, transparent);
+}
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.nav a {
+  color: var(--muted-text);
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+.nav a:hover {
+  color: var(--text);
+  background: color-mix(in oklab, var(--clr-primary) 8%, transparent);
+}
+.mobile-nav {
+  display: none;
+}
+@media (max-width: 900px) {
+  .nav { display: none; }
+  .mobile-nav { display: block; }
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+/* Hero */
+.hero {
+  padding: clamp(72px, 10vw, 120px) 0;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+.hero h1 span {
+  color: var(--clr-primary);
+}
+.hero .lead {
+  color: var(--muted-text);
+  font-size: clamp(16px, 2.6vw, 18px);
+  margin-bottom: 20px;
+}
+.hero-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.hero-art {
+  position: relative;
+  height: 100%;
+}
+.hero-card {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px 300px at -10% -20%, var(--gradient-from), transparent 55%),
+              radial-gradient(600px 300px at 110% -10%, var(--gradient-from), transparent 55%);
+  z-index: -1;
+}
+.hero-image {
+  aspect-ratio: 4/3;
+  width: 100%;
+  object-fit: cover;
+  border-bottom: 1px solid var(--border);
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+/* Menu */
+.section-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.section-title small {
+  color: var(--muted-text);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .menu-grid { grid-template-columns: 1fr; }
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
+.menu-card {
+  overflow: hidden;
+}
+.menu-thumb {
+  aspect-ratio: 4/3;
+  width: 100%;
+  object-fit: cover;
+  border-bottom: 1px solid var(--border);
+}
+.menu-body {
+  padding: 14px 16px 16px;
+}
+.menu-topline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.price {
+  color: var(--clr-secondary);
+  font-weight: 800;
+}
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.tag {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: var(--text);
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--clr-primary) 6%, transparent);
+}
+
+/* About */
+.about {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 28px;
+  align-items: center;
+}
+.about .card {
+  padding: 20px;
+}
+.about-figure {
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.about-figure img {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+@media (max-width: 900px) {
+  .about { grid-template-columns: 1fr; }
+}
+
+/* Contact */
+.form {
+  display: grid;
+  gap: 14px;
+}
+.input,
+.textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color var(--transition), background var(--transition);
+}
+.input:focus,
+.textarea:focus {
+  border-color: color-mix(in oklab, var(--clr-primary) 45%, transparent);
+}
+.textarea { min-height: 120px; resize: vertical; }
+.input.error,
+.textarea.error { border-color: var(--clr-error); }
+.helper {
+  font-size: 12px;
+  color: var(--muted-text);
+}
+.helper.error { color: var(--clr-error); }
+
+/* Footer */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  color: var(--muted-text);
+  background: color-mix(in oklab, var(--surface) 92%, transparent);
 }
